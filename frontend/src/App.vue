@@ -1,5 +1,7 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+
+import ProgressMacros from "./components/ProgressionMacros.vue"
 </script>
 
 <template>
@@ -17,7 +19,11 @@ import HelloWorld from './components/HelloWorld.vue'
         <div id="calories-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
           <h2 class="text-red-400">Calories</h2>
           <div class="grid grid-cols-1 place-items-center mt-4">
-            <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>
+            <div class="relative grid place-items-center">
+              <!-- <div class="absolute inset-0 rounded-full border-8 border-gray-200"></div> -->
+              <ProgressMacros :value="600" :max="1556" :size="160" />
+              <p class="z-10 font-bold">120 / 120</p>
+            </div>
           </div>
         </div>
 
@@ -30,7 +36,7 @@ import HelloWorld from './components/HelloWorld.vue'
         </div>
 
         <!-- CARBOHYDRATE SECTION -->
-        <div id="glucides-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
+        <div id="carbohydrates-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
           <h2 class="text-green-400">Carbohydrates</h2>
           <div class="grid grid-cols-1 place-items-center mt-4">
             <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>
@@ -38,7 +44,7 @@ import HelloWorld from './components/HelloWorld.vue'
         </div>
 
         <!-- LIPIDS SECTIONS -->
-        <div id="lipides-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
+        <div id="lipids-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
           <h2 class="text-blue-400">Lipids</h2>
           <div class="grid grid-cols-1 place-items-center mt-4">
             <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>

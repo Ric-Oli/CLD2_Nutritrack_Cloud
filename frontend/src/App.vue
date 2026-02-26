@@ -1,7 +1,9 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 
-import ProgressMacros from "./components/ProgressionMacros.vue"
+import ProgressionMacrosCards from "./components/ProgressionMacrosCards.vue"
+
+import Calendar from "./components/Calendar.vue";
 </script>
 
 <template>
@@ -10,46 +12,33 @@ import ProgressMacros from "./components/ProgressionMacros.vue"
       <h1>NutriTrack Cloud</h1>
     </div>
 
-
     <!-- MAIN CONTENT -->
-    <div class="grid xl:grid-cols-2 p-8">
-      <div class="grid grid-cols-2 xl:mx-8">
+    <div class="grid-cols-1 xl:grid-cols-2 p-8">
+
+      <!-- CALENDAR SECTION -->
+
+        <Calendar />
+
+        <!--
+        <div class="text-center w-[14.28%]">
+          <p>25 févr.</p>
+        </div>
+        -->
+
+      <!-- CARDS SECTION -->
+      <div class="grid grid-cols-2">
 
         <!-- CALORIES SECTION -->
-        <div id="calories-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
-          <h2 class="text-red-400">Calories</h2>
-          <div class="grid grid-cols-1 place-items-center mt-4">
-            <div class="relative grid place-items-center">
-              <!-- <div class="absolute inset-0 rounded-full border-8 border-gray-200"></div> -->
-              <ProgressMacros :value="600" :max="1556" :size="160" />
-              <p class="z-10 font-bold">120 / 120</p>
-            </div>
-          </div>
-        </div>
+        <ProgressionMacrosCards :title="'calories'" :unity="'kcal'" :value="1000" :max="1556" :color="'oklch(70.4% 0.191 22.216)'" :size="160" />
 
         <!-- PROTEINS SECTION -->
-        <div id="proteins-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
-          <h2 class="text-orange-400">Proteins</h2>
-          <div class="grid grid-cols-1 place-items-center mt-4">
-            <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>
-          </div>
-        </div>
+        <ProgressionMacrosCards :title="'proteins'" :value="1000" :max="1556" :color="'oklch(75% 0.183 55.934)'" :size="160" />
 
         <!-- CARBOHYDRATE SECTION -->
-        <div id="carbohydrates-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
-          <h2 class="text-green-400">Carbohydrates</h2>
-          <div class="grid grid-cols-1 place-items-center mt-4">
-            <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>
-          </div>
-        </div>
+        <ProgressionMacrosCards :title="'carbohydrates'" :value="80" :max="1556" :color="'oklch(79.2% 0.209 151.711)'" :size="160" />
 
         <!-- LIPIDS SECTIONS -->
-        <div id="lipids-section" class="track-nutrition text-lg text-center font-semibold text-gray-200 tracking-wide uppercase m-3 p-3">
-          <h2 class="text-blue-400">Lipids</h2>
-          <div class="grid grid-cols-1 place-items-center mt-4">
-            <div class="w-32 h-32 rounded-full border-8 border-gray-200"></div>
-          </div>
-        </div>
+        <ProgressionMacrosCards :title="'lipids'" :value="1000" :max="1556" :color="'oklch(70.7% 0.165 254.624)'" :size="160" />
 
       </div>
 

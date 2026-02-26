@@ -48,7 +48,7 @@ async function saveProfile() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#121212] flex items-center justify-center">
+  <div class="min-h-screen  flex items-center justify-center">
     <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl p-10 w-full max-w-lg">
 
       <div class="flex items-center gap-4 mb-8">
@@ -58,10 +58,6 @@ async function saveProfile() {
         <h1 class="text-white text-2xl font-bold">Mon profil - {{ user?.firstname }}</h1>
       </div>
 
-      <div v-if="user" class="bg-[#2a2a2a] rounded-xl p-4 mb-6">
-        <p class="text-white font-semibold">{{ user.firstname }} {{ user.lastname }}</p>
-        <p class="text-gray-400 text-sm">{{ user.email }}</p>
-      </div>
 
       <div v-if="success" class="bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg p-3 mb-4 text-sm">
         {{ success }}

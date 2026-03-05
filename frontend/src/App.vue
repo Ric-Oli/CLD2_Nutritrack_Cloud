@@ -22,7 +22,7 @@ function getUser() {
        class="fixed top-6 right-6 z-50 flex flex-col gap-2 bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl p-4 shadow-xl">
 
     <button @click="logout"
-            class="bg-[#ff6b6b]/10 hover:bg-[#ff6b6b] text-[#ff6b6b] hover:text-white text-sm px-4 py-2 rounded-lg transition text-right">
+            class="bg-[#ff6b6b]/10 hover:bg-[#ff6b6b] text-[#ff6b6b] text-sm px-4 py-2 rounded-lg transition text-right">
       Déconnexion
     </button>
 

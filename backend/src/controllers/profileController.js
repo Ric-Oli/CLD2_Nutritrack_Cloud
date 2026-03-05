@@ -24,3 +24,23 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.getProfile = async (req, res) => {
+    const userId = req.user.id;
+    try {
+        const [userRows] = await db.query(
+            'SELECT height FROM user_ WHERE user_id = ?',
+            [userId]
+        );
+        const [goalRows] = await db.query(
+            'SELECT caloriesperday, macrosproteins, macroscarbohydrates, macroslipids FROM goal WHERE user_id = ?',
+            [userId]
+        );
+        res.json({
+            height: userRows[0]?.height || '',
+            ...goalRows[0] || {}
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};

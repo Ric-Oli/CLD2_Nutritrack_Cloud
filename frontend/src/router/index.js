@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
+import ProfileView from "../views/profileView.vue";
+import WeightView from '../views/WeightView.vue';
 
 const routes = [
     {
@@ -12,6 +14,13 @@ const routes = [
         component: HomeView,
         meta: { requiresAuth: true }, // route protégée
     },
+    {   path: '/profile',
+        component: ProfileView,
+        meta: { requiresAuth: true }
+    },
+    {   path: '/weight',
+        component: WeightView,
+        meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({

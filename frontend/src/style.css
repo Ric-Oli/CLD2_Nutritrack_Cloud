@@ -16,6 +16,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+button.delete {
+  color: #6a7282;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: border 0.2s, color 0.2s;
+}
+
+button.delete:hover {
+  border: 1px solid #f87171;
+  color: #f87171;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

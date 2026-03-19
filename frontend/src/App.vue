@@ -31,6 +31,11 @@ function getUser() {
       Mon profil
     </button>
 
+    <button @click="router.push('/weight')"
+            class="bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white text-sm px-4 py-2 rounded-lg transition text-left">
+      Suivi du poids
+    </button>
+
   </div>
 
   <RouterView />

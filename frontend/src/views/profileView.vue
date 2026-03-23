@@ -72,12 +72,6 @@ async function saveProfile() {
 
     <div class="flex items-start gap-4">
 
-      <!-- Bouton retour à gauche du bloc -->
-      <button @click="router.push('/')"
-              class="text-gray-400 hover:text-white transition text-2xl">
-        ← retour
-      </button>
-
       <!-- Bloc principal -->
       <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl p-10 w-full max-w-lg">
 

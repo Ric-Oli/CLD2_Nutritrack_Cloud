@@ -128,10 +128,6 @@ onMounted(fetchWeights);
 
     <!-- Header -->
     <div style="background-color: #1a1a1a; border-bottom: 1px solid #2a2a2a;" class="px-8 py-5 flex items-center gap-4">
-      <button @click="router.push('/')" class="text-gray-400 hover:text-white transition text-sm">
-        ← Retour
-      </button>
-      <div style="width: 1px; background-color: #2a2a2a; height: 20px;"></div>
       <h1 class="text-white font-bold text-lg">Suivi du poids</h1>
     </div>
 

@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue"
-import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
 const props = defineProps({
   title: {
@@ -47,7 +46,7 @@ const offset = computed(() =>
 </script>
 
 <template>
-  <div class="track-nutrition text-lg text-center font-semibold tracking-wide m-3 p-3">
+  <div class="track-nutrition text-lg text-center font-semibold tracking-wide m-3">
     <h2 class="uppercase" :style="{ color: color}">{{ title }}</h2>
     <div class="grid grid-cols-1 place-items-center mt-4">
       <div class="relative grid place-items-center">
@@ -91,7 +90,6 @@ const offset = computed(() =>
             {{ value }} / {{ max }} {{ unity }}
           </div>
         </div>
-        <p class="z-10 font-bold">120 / 120</p>
       </div>
     </div>
   </div>

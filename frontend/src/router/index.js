@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
-import ProfileView from "../views/profileView.vue";
+import ProfileView from "../views/ProfileView.vue";
 import WeightView from '../views/WeightView.vue';
+import FoodView from '../views/FoodView.vue';
+import StatsView from '../views/StatsView.vue';
 
 const routes = [
     {
@@ -20,7 +22,16 @@ const routes = [
     },
     {   path: '/weight',
         component: WeightView,
-        meta: { requiresAuth: true } },
+        meta: { requiresAuth: true }
+    },
+    {   path: '/food',
+        component: FoodView,
+        meta: { requiresAuth: true }
+    },
+    {   path: '/stats',
+        component: StatsView,
+        meta: { requiresAuth: true }
+    },
 ];
 
 const router = createRouter({

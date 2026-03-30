@@ -1,8 +1,16 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 const selectedOffset = ref(0);
+
+watch(selectedOffset, (newOffset) => {
+  const date = new Date();
+  date.setDate(date.getDate() + newOffset);
+  emit('date-change', date.toISOString().split('T')[0]);
+});
+
 const windowWidth = ref(window.innerWidth);
+const emit = defineEmits(['date-change']);
 
 function updateWidth() {
   windowWidth.value = window.innerWidth;

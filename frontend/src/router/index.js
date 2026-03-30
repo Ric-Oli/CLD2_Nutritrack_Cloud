@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue';
 import ProfileView from "../views/ProfileView.vue";
 import WeightView from '../views/WeightView.vue';
 import FoodView from '../views/FoodView.vue';
+import StatsView from '../views/StatsView.vue';
 
 const routes = [
     {
@@ -25,6 +26,10 @@ const routes = [
     },
     {   path: '/food',
         component: FoodView,
+        meta: { requiresAuth: true }
+    },
+    {   path: '/stats',
+        component: StatsView,
         meta: { requiresAuth: true }
     },
 ];

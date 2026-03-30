@@ -30,6 +30,7 @@ const userInitials = computed(() => {
 
 const navItems = [
   { path: '/', label: 'Accueil' },
+  { path: '/stats', label: 'Statistiques' },
   { path: '/weight', label: 'Suivi du poids' },
   { path: '/profile', label: 'Mon profil' },
   { path: '/food', label: 'Créer un aliment' },

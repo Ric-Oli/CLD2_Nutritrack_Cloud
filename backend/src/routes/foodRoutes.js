@@ -5,9 +5,11 @@ const db = require('../config/database');
 const upload = require('../middleware/uploadMiddleware');
 
 router.get('/recent', authMiddleware, async (req, res) => {
+    const userId = req.user.id;
     try {
         const [rows] = await db.query(
-            'SELECT * FROM food ORDER BY food_id DESC LIMIT 5'
+            'SELECT * FROM food WHERE user_id = ? ORDER BY food_id DESC LIMIT 5',
+            [userId]
         );
         res.json(rows);
     } catch (err) {
@@ -50,8 +52,12 @@ router.get('/search', authMiddleware, async (req, res) => {
 });
 
 router.get('/', authMiddleware, async (req, res) => {
+    const userId = req.user.id;
     try {
-        const [rows] = await db.query('SELECT * FROM food ORDER BY food_id DESC');
+        const [rows] = await db.query(
+            'SELECT * FROM food WHERE user_id = ? ORDER BY food_id DESC',
+            [userId]
+        );
         res.json(rows);
     } catch (err) {
         res.status(500).json({ message: err.message });

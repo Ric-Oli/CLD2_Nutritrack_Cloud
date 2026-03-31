@@ -1,21 +1,6 @@
 const multer = require('multer');
-const path = require('path');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../../uploads/foods'));
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const name = file.originalname
-            .replace(ext, '')
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '');
-        const unique = Date.now();
-        cb(null, `${name}-${unique}${ext}`);
-    }
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
     const allowed = ['image/jpeg', 'image/png', 'image/webp'];
@@ -29,5 +14,5 @@ const fileFilter = (req, file, cb) => {
 module.exports = multer({
     storage,
     fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 } // 5MB max
+    limits: { fileSize: 5 * 1024 * 1024 }
 });

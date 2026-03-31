@@ -6,7 +6,16 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
+
 app.use(express.json());
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/profile', require('./routes/profileRoutes'));

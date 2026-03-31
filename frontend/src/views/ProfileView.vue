@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { API_URL } from "../api.js";
 
 const router = useRouter();
 const user = ref(null);
@@ -19,7 +20,7 @@ onMounted(async() => {
   const token = localStorage.getItem('token');
 
   try {
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch(`${API_URL}/api/profile`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -43,7 +44,7 @@ async function saveProfile() {
   const token = localStorage.getItem('token');
 
   try {
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch(`${API_URL}/api/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -13,6 +13,7 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import { API_URL } from "../api.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -29,7 +30,7 @@ function getToken() {
 
 async function fetchHistory(days) {
   try {
-    const res = await fetch(`http://localhost:3000/api/mealentry/history?days=${days}`, {
+    const res = await fetch(`${API_URL}/api/mealentry/history?days=${days}`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     historyData.value = await res.json();
@@ -40,7 +41,7 @@ async function fetchHistory(days) {
 
 async function fetchGoal() {
   try {
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch('${API_URL}/api/profile', {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     const data = await res.json();

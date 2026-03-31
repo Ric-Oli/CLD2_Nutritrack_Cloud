@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { API_URL, getImageUrl } from "../api.js";
 
 const foods = ref([]);
 const success = ref('');
@@ -41,7 +42,7 @@ function openEditModal(food) {
   editLipids.value = parseFloat(food.lipids);
   editImageFile.value = null;
   editImagePreview.value = food.image
-      ? `http://localhost:3000/uploads/foods/${food.image}`
+      ? `${API_URL}/uploads/foods/${food.image}`
       : null;
   showModal.value = true;
 }
@@ -64,7 +65,7 @@ async function updateFood() {
   if (editImageFile.value) formData.append('image', editImageFile.value);
 
   try {
-    const res = await fetch(`http://localhost:3000/api/food/${editingFood.value.food_id}`, {
+    const res = await fetch(`${API_URL}/api/food/${editingFood.value.food_id}`, {
       method: 'PUT',
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
@@ -81,7 +82,7 @@ async function updateFood() {
 async function fetchFoods() {
   const token = localStorage.getItem('token');
   try {
-    const res = await fetch('http://localhost:3000/api/food', {
+    const res = await fetch('${API_URL}/api/food', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     foods.value = await res.json();
@@ -112,7 +113,7 @@ async function createFood() {
   if (imageFile.value) formData.append('image', imageFile.value);
 
   try {
-    const res = await fetch('http://localhost:3000/api/food', {
+    const res = await fetch('${API_URL}/api/food', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -142,7 +143,7 @@ async function createFood() {
 async function deleteFood(id) {
   const token = localStorage.getItem('token');
   try {
-    await fetch(`http://localhost:3000/api/food/${id}`, {
+    await fetch(`${API_URL}/api/food/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -372,7 +373,7 @@ onMounted(fetchFoods);
 
                 <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0">
                   <img v-if="food.image"
-                       :src="`http://localhost:3000/uploads/foods/${food.image}`"
+                       :src="getImageUrl(food.image)"
                        class="w-full h-full object-cover" />
                   <div v-else class="w-full h-full flex items-center justify-center text-sm"
                        style="background-color: #3a3a3a;">🍽️</div>

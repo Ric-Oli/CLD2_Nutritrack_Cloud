@@ -2,6 +2,7 @@
 import ProgressionMacrosCards from "../components/ProgressionMacrosCards.vue"
 import Calendar from "../components/Calendar.vue";
 import { ref, onMounted, watch, computed } from 'vue';
+import { API_URL, getImageUrl } from "../api.js";
 
 const recentFoods = ref([]);
 const searchQuery = ref('');
@@ -28,7 +29,7 @@ function getToken() {
 
 async function fetchMacros() {
   try {
-    const res = await fetch(`http://localhost:3000/api/mealentry?date=${selectedDate.value}`, {
+    const res = await fetch(`${API_URL}/api/mealentry?date=${selectedDate.value}`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     const data = await res.json();
@@ -45,7 +46,7 @@ async function fetchMacros() {
 
 async function fetchGoal() {
   try {
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch('${API_URL}/api/profile', {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     const data = await res.json();
@@ -62,7 +63,7 @@ async function fetchGoal() {
 
 async function fetchMeals() {
   try {
-    const res = await fetch('http://localhost:3000/api/meals', {
+    const res = await fetch('${API_URL}/api/meals', {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     meals.value = await res.json();
@@ -74,7 +75,7 @@ async function fetchMeals() {
 
 async function fetchRecentFoods() {
   try {
-    const res = await fetch('http://localhost:3000/api/food/recent', {
+    const res = await fetch('${API_URL}/api/food/recent', {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     recentFoods.value = await res.json();
@@ -89,7 +90,7 @@ async function searchFoods() {
     return;
   }
   try {
-    const res = await fetch(`http://localhost:3000/api/food/search?q=${searchQuery.value}`, {
+    const res = await fetch(`${API_URL}/api/food/search?q=${searchQuery.value}`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     searchResults.value = await res.json();
@@ -110,7 +111,7 @@ function openAddModal(food) {
 async function addFoodEntry() {
   if (!selectedFood.value || !selectedMealId.value || !quantity.value) return;
   try {
-    await fetch('http://localhost:3000/api/mealentry', {
+    await fetch('${API_URL}/api/mealentry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +161,7 @@ const entriesByMeal = computed(() => {
 
 async function fetchDailyEntries() {
   try {
-    const res = await fetch(`http://localhost:3000/api/mealentry/detail?date=${selectedDate.value}`, {
+    const res = await fetch(`${API_URL}/api/mealentry/detail?date=${selectedDate.value}`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     const data = await res.json();
@@ -173,7 +174,7 @@ async function fetchDailyEntries() {
 
 async function updateEntryQuantity(entry) {
   try {
-    await fetch(`http://localhost:3000/api/mealentry/${entry.mealentry_id}`, {
+    await fetch(`${API_URL}/api/mealentry/${entry.mealentry_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -190,7 +191,7 @@ async function updateEntryQuantity(entry) {
 
 async function deleteEntry(id) {
   try {
-    await fetch(`http://localhost:3000/api/mealentry/${id}`, {
+    await fetch(`${API_URL}/api/mealentry/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
@@ -231,7 +232,7 @@ onMounted(async () => {
         <div style="background-color: #242424; border: 1px solid #2a2a2a;" class="rounded-xl p-4 flex items-center gap-3">
           <div class="w-10 h-10 rounded-lg overflow-hidden shrink-0">
             <img v-if="selectedFood?.image"
-                 :src="`http://localhost:3000/uploads/foods/${selectedFood.image}`"
+                 :src="`${API_URL}/uploads/foods/${selectedFood.image}`"
                  class="w-full h-full object-cover" />
             <div v-else class="w-full h-full flex items-center justify-center" style="background-color: #3a3a3a;">🍽️</div>
           </div>
@@ -314,7 +315,7 @@ onMounted(async () => {
                 <div class="flex items-center gap-3">
                   <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0">
                     <img v-if="food.image"
-                         :src="`http://localhost:3000/uploads/foods/${food.image}`"
+                         :src="getImageUrl(food.image)"
                          class="w-full h-full object-cover" />
                     <div v-else class="w-full h-full flex items-center justify-center text-xs" style="background-color: #3a3a3a;">🍽️</div>
                   </div>
@@ -341,7 +342,7 @@ onMounted(async () => {
               <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0">
                   <img v-if="food.image"
-                       :src="`http://localhost:3000/uploads/foods/${food.image}`"
+                       :src="getImageUrl(food.image)"
                        class="w-full h-full object-cover" />
                   <div v-else class="w-full h-full flex items-center justify-center text-xs" style="background-color: #3a3a3a;">🍽️</div>
                 </div>
@@ -391,7 +392,7 @@ onMounted(async () => {
                 <!-- Image -->
                 <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0">
                   <img v-if="entry.image"
-                       :src="`http://localhost:3000/uploads/foods/${entry.image}`"
+                       :src="`${API_URL}/uploads/foods/${entry.image}`"
                        class="w-full h-full object-cover" />
                   <div v-else class="w-full h-full flex items-center justify-center text-xs"
                        style="background-color: #3a3a3a;">🍽️</div>

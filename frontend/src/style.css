@@ -1,3 +1,10 @@
+/* IMPORT */
+@import "tailwindcss";
+
+body {
+  background-color: #121212;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,6 +20,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+button.delete {
+  color: #6a7282;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: border 0.2s, color 0.2s;
+}
+
+button.delete:hover {
+  border: 1px solid #f87171;
+  color: #f87171;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -24,7 +44,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -59,10 +78,8 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
 @media (prefers-color-scheme: light) {
@@ -77,3 +94,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+

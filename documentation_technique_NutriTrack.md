@@ -259,7 +259,7 @@ meal (meal_id, mealtype)  -- Table statique : Petit-déjeuner, Déjeuner, Dîner
 ### Backend (.env)
 ```env
 PORT=3000
-FRONTEND_URL=https://ton-app.vercel.app
+FRONTEND_URL=https://cld-2-nutritrack-cloud-e1apzs6rv-ricardos-projects-a6500ea9.vercel.app
 
 DB_HOST=gateway01.eu-central-1.prod.aws.tidbcloud.com
 DB_PORT=4000
@@ -277,5 +277,5 @@ CLOUDINARY_API_SECRET=xxx
 
 ### Frontend (.env)
 ```env
-VITE_API_URL=https://ton-backend.onrender.com
+VITE_API_URL=https://cld2-nutritrack-cloud.onrender.com
 ```

@@ -12,12 +12,24 @@ const allowedOrigins = [
     /\.vercel\.app$/  // Autorise tous les sous-domaines vercel.app
 ].filter(Boolean);
 
+const app = express();
+
+// CORS: accepte localhost, l'URL Vercel principale, et tous les previews Vercel
 app.use(cors({
     origin: (origin, callback) => {
+        // Pas d'origin (ex: Postman) → OK
         if (!origin) return callback(null, true);
-        if (allowedOrigins.some(o => o instanceof RegExp ? o.test(origin) : o === origin)) {
-            return callback(null, true);
-        }
+
+        // Localhost → OK
+        if (origin.includes('localhost')) return callback(null, true);
+
+        // Vercel (tous les sous-domaines) → OK
+        if (origin.endsWith('.vercel.app')) return callback(null, true);
+
+        // FRONTEND_URL exact → OK
+        if (origin === process.env.FRONTEND_URL) return callback(null, true);
+
+        // Sinon → refusé
         callback(new Error('Not allowed by CORS'));
     },
     credentials: true

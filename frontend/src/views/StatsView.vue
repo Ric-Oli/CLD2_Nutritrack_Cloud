@@ -13,6 +13,7 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import { API_URL } from "../api.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -29,7 +30,7 @@ function getToken() {
 
 async function fetchHistory(days) {
   try {
-    const res = await fetch(`http://localhost:3000/api/mealentry/history?days=${days}`, {
+    const res = await fetch(`${API_URL}/api/mealentry/history?days=${days}`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     historyData.value = await res.json();
@@ -40,7 +41,7 @@ async function fetchHistory(days) {
 
 async function fetchGoal() {
   try {
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch(`${API_URL}/api/profile`, {
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
     const data = await res.json();
@@ -73,12 +74,12 @@ const macrosData = computed(() => {
 // Stats résumées
 const avgCalories = computed(() => {
   if (caloriesData.value.length === 0) return 0;
-  const sum = caloriesData.value.reduce((acc, d) => acc + (d.calories || 0), 0);
+  const sum = caloriesData.value.reduce((acc, d) => acc + (parseFloat(d.calories) || 0), 0);
   return Math.round(sum / caloriesData.value.length);
 });
 
 const totalProtein = computed(() => {
-  return Math.round(macrosData.value.reduce((acc, d) => acc + (d.proteins || 0), 0));
+  return Math.round(macrosData.value.reduce((acc, d) => acc + (parseFloat(d.proteins) || 0), 0));
 });
 
 // ============ GRAPHIQUE CALORIES ============
@@ -380,21 +381,6 @@ onMounted(async () => {
           </div>
         </div>
 
-      </div>
-
-      <!-- Légende explicative -->
-      <div style="background-color: #1a1a1a; border: 1px solid #2a2a2a;" class="rounded-2xl p-6 mt-4">
-        <h2 class="text-gray-400 text-xs uppercase font-semibold tracking-widest mb-3">Comment lire ces graphiques</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400">
-          <div>
-            <p class="text-white font-medium mb-1">Calories par jour</p>
-            <p>Les barres montrent vos calories quotidiennes. La ligne verte pointillée représente votre objectif. Cliquez sur la légende pour masquer/afficher une série.</p>
-          </div>
-          <div>
-            <p class="text-white font-medium mb-1">Macronutriments</p>
-            <p>Les barres empilées montrent la répartition de vos macros (protéines, glucides, lipides) par jour. Survolez pour voir les valeurs exactes.</p>
-          </div>
-        </div>
       </div>
 
     </div>

@@ -13,6 +13,7 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import { API_URL } from "../api.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -30,7 +31,7 @@ const periods = [7, 30, 90];
 async function fetchWeights() {
   const token = localStorage.getItem('token');
   try {
-    const res = await fetch('http://localhost:3000/api/weight', {
+    const res = await fetch(`${API_URL}/api/weight`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     const data = await res.json();
@@ -47,7 +48,7 @@ async function addWeight() {
   if (!newWeight.value || !newDate.value) return;
   const token = localStorage.getItem('token');
   try {
-    const res = await fetch('http://localhost:3000/api/weight', {
+    const res = await fetch(`${API_URL}/api/weight`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify({ weight: newWeight.value, date_: newDate.value })
@@ -65,7 +66,7 @@ async function addWeight() {
 async function deleteWeight(id) {
   const token = localStorage.getItem('token');
   try {
-    await fetch(`http://localhost:3000/api/weight/${id}`, {
+    await fetch(`${API_URL}/api/weight/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -80,7 +81,13 @@ const filteredWeights = computed(() => {
   const now = new Date();
   const cutoff = new Date(now);
   cutoff.setDate(cutoff.getDate() - selectedPeriod.value);
-  return weights.value.filter(w => new Date(w.date_) >= cutoff);
+
+  const filtered = weights.value.filter(w => new Date(w.date_) >= cutoff);
+  console.log(`Période: ${selectedPeriod.value}j, Entrées: ${filtered.length}/${weights.value.length}`);
+
+  return filtered;
+
+  //return weights.value.filter(w => new Date(w.date_) >= cutoff);
 });
 
 const lastWeight = computed(() => weights.value.length > 0 ? weights.value[weights.value.length - 1].weight : null);

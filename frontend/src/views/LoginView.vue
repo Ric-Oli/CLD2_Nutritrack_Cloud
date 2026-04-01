@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { API_URL } from "../api.js";
 
 const router = useRouter();
 const email = ref('');
@@ -13,8 +14,8 @@ const lastname = ref('');
 async function submit() {
   error.value = '';
   const url = isRegister.value
-      ? 'http://localhost:3000/api/auth/register'
-      : 'http://localhost:3000/api/auth/login';
+      ? `${API_URL}/api/auth/register`
+      : `${API_URL}/api/auth/login`;
 
   const body = isRegister.value
       ? { lastname: lastname.value, firstname: firstname.value, email: email.value, password: password.value }

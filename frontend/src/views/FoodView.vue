@@ -82,7 +82,7 @@ async function updateFood() {
 async function fetchFoods() {
   const token = localStorage.getItem('token');
   try {
-    const res = await fetch('${API_URL}/api/food', {
+    const res = await fetch(`${API_URL}/api/food`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     foods.value = await res.json();
@@ -113,7 +113,7 @@ async function createFood() {
   if (imageFile.value) formData.append('image', imageFile.value);
 
   try {
-    const res = await fetch('${API_URL}/api/food', {
+    const res = await fetch(`${API_URL}/api/food`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`

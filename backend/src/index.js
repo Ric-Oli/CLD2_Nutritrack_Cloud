@@ -8,11 +8,18 @@ const app = express();
 
 const allowedOrigins = [
     'http://localhost:5173',
-    process.env.FRONTEND_URL
+    process.env.FRONTEND_URL,
+    /\.vercel\.app$/  // Autorise tous les sous-domaines vercel.app
 ].filter(Boolean);
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.some(o => o instanceof RegExp ? o.test(origin) : o === origin)) {
+            return callback(null, true);
+        }
+        callback(new Error('Not allowed by CORS'));
+    },
     credentials: true
 }));
 
